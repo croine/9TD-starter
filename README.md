@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 9TD — Task Dashboard (Desktop App)
 
 A forward-looking, bright-but-grown-up task dashboard with 2D/3D motion, built as an Electron + React + TypeScript desktop app.
@@ -41,3 +42,7 @@ npm run electron:build
 ## Notes
 - This is a scaffold: you will populate real data. 
 - The client expects an API base url in `VITE_API_BASE_URL` env var.
+=======
+# 9TD-starter
+Task Dashboard that you can create and customise your settings to your own liking. Cozy task dashboard client with live updates!
+>>>>>>> b5dd4fe4ecbcb9e09727411a8b61132d49b241ad
