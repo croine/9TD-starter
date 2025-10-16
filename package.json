@@ -1,0 +1,13 @@
+{
+  "name": "9td-monorepo",
+  "private": true,
+  "workspaces": [
+    "apps/desktop"
+  ],
+  "dependencies": {
+    "react-router-dom": "^7.9.4"
+  },
+  "devDependencies": {
+    "@types/react-router-dom": "^5.3.3"
+  }
+}

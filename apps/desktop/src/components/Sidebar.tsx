@@ -1,0 +1,90 @@
+// src/components/Sidebar.tsx
+import { NavLink } from "react-router-dom"
+import { motion } from "framer-motion"
+import {
+  LayoutDashboard,
+  ListTodo,
+  FileClock,
+  RefreshCcw, // ✅ add this import
+  Settings,
+} from "lucide-react"
+import { useUI } from "@/state/ui"
+import { useTheme } from "@/state/theme"
+
+export default function Sidebar() {
+  const { sidebarOpen } = useUI()
+  const { mode } = useTheme()
+
+  const links = [
+    {
+      to: "/tasks",
+      label: "Tasks", // renamed from Dashboard → Tasks
+      icon: LayoutDashboard,
+    },
+    {
+      to: "/your-tasks",
+      label: "Your Tasks",
+      icon: ListTodo,
+    },
+    {
+      to: "/logs",
+      label: "Logs",
+      icon: FileClock,
+    },
+    {
+      to: "/updates",
+      label: localStorage.getItem("9td_last_seen_version") !== "1.0.0" ? "Updates 🆕" : "Updates",
+      icon: RefreshCcw, // ✅ fixed reference
+    },
+    {
+      to: "/settings",
+      label: "Settings",
+      icon: Settings,
+    },
+  ]
+
+  return (
+    <motion.aside
+      initial={false}
+      animate={{
+        width: sidebarOpen ? 220 : 68,
+      }}
+      transition={{ type: "spring", stiffness: 200, damping: 24 }}
+      className={`h-screen flex flex-col border-r border-slate-200 dark:border-slate-800 ${
+        mode === "dark"
+          ? "bg-slate-900 text-slate-100"
+          : "bg-white text-slate-800"
+      }`}
+    >
+      <div className="flex items-center justify-center py-5 border-b border-slate-200 dark:border-slate-800">
+        <span className="font-display font-bold text-xl text-brand-600">
+          9TD
+        </span>
+      </div>
+
+      <nav className="flex-1 overflow-y-auto mt-4 space-y-1">
+        {links.map(({ to, label, icon: Icon }) => (
+          <NavLink
+            key={to}
+            to={to}
+            className={({ isActive }) =>
+              `flex items-center gap-3 px-4 py-2.5 rounded-lg mx-2 transition-colors ${
+                isActive
+                  ? "bg-brand-100 dark:bg-brand-800 text-brand-700 dark:text-brand-300 font-medium"
+                  : "text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
+              }`
+            }
+          >
+            <Icon size={18} />
+            {sidebarOpen && <span>{label}</span>}
+          </NavLink>
+        ))}
+      </nav>
+
+      <div className="p-3 text-center text-xs text-slate-500 dark:text-slate-400 border-t border-slate-200 dark:border-slate-800">
+        <p>9TD Dashboard</p>
+        <p className="opacity-70">Version 1.0.0</p>
+      </div>
+    </motion.aside>
+  )
+}
